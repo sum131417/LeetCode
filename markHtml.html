@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .color-1 {
+            background-color: #0F5BFF;
+        }
+        .color-2 {
+            background-color: #81D68B;
+        }
+        .color-3 {
+            background-color: #9650D4;
+        }
+        .color-4 {
+            background-color: #E5846A;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <pre id="pre">
+            <div id="text-container">
+            </div>
+        </pre>
+    </div>
+    <button onclick="setMark(1)">标注结果1</button>
+    <button onclick="setMark(2)">标注结果2</button>
+    <button onclick="setMark(3)">标注结果3</button>
+    <script>
+        const text = "《呐喊》是鲁迅的第一部小说集，写于1918-1922年“五四”运动前后的短片小说集，作者创作小说意在描写“病态社会的不幸的人们”，“揭出痛苦，引起疗救得注意”，并为新文化运动 “呐喊”。目的在于慰藉那些斗争中 “奔驰的猛士”，使他们勇往直前。作者创作 《呐喊》的目的是：慰藉那些在寂寞里奔驰的勇士，使他不祥于前驱。呐喊大部分作于“五四”运动中后期，作者思想中还有儿分光明在，鲁迅创作抱着启蒙主义的目的，所以取材“多采自病态社会的不幸的人们，意思是在揭出病苦，引起疗救的注意“，并由此开掘了表现农民与知识分子两类题材。\n艺术特点：\n鲁迅作品的艺术特点首先在于真实。鲁迅主张文学创作用 “白描”手法，“如实描写”作品中展现的生活场景，水乡风情，民俗风貌，城镇景致，人物的言行姿态，就像生活本身那样真实，自然，犹如身临其境。\n鲁迅擅于发掘蕴含深刻社会意义的生活片段和生活场景，集中突出地展示人物的性格和命运。《呐喊》 中的作品都没有对人物生活经历进行叙述，甚至不注意故事情节的连续性，人物的性格和命运都是通过特定生活片段和场景表现出来的。例如，孔乙己这个人物，我们并不知道他的生活经历，他的迁腐性格和悲剧命运，是在咸亨酒店的场景中表现出来。鲁迅小说的这个特点，使它们在短小的篇幅中 表现出丰富的社会内涵，达到取材严，开扭深的艺木效果，给人以强烈深刻的艺术感受。鲁迅擅用 “画龙点睛”的手法描写人物形象，运用具有特征性的细节刻画人物性格。如《阿Q正传》用阿Q被打后说是“儿子打老子”，或被打后说自己是“虫”等一系列细节，鲜明地表现出这个人物白欺欺人，自轻白贱的性格特征。《药》用夏瑜被狱卒打了嘴巴反而说打人者“可怜”的细节，突出了革命者大义凛然的品格。“面龙点睛”的艺术手法，使人物形象鲜明生动，令人难以忘怀，\n鲁迅是现代文学语言大师，他的文学语言纯净、简洁、生动、，富有艺术表现力。他善于根据作品内容，调整语言色调，营造艺术氛国，增强作品的感染力。有的作品用抒情的笔调，如《社戏》、《风波》等，使作品具有浓郁的诗情画意；有的作品用冷峻 笔调，如《狂人日记》、《药路》等，使作品表达的思想更有冲击性：有的作品用诙谐风趣的笔调，如《孔乙己》《阿Q正传》，用喜刷的色彩表达悲刷内容，使作品具有耐人寻味的特质：有的作品集讽刺于一体，如 《端午节》、《白光》，增强了作品的批判效果。鲁迅小说的语言艺术，读者多方面的艺术享受，令人常读常新。"
+        const markList1 = [
+            {id: 1, start: 0, end: 5, fieldId: 1, fieldName: '时间'},
+            {id: 2, start: 8, end: 10, fieldId: 2, fieldName: '地点'},
+            {id: 3, start: 8, end: 10, fieldId: 2, fieldName: '地点'},
+            {id: 4, start: 15, end: 18, fieldId: 3, fieldName: '人名'}
+        ];
+        const markList2 = [
+            {id: 1, start: 0, end: 10, fieldId: 1, fieldName: '时间'},
+            {id: 2, start: 5, end: 8, fieldId: 2, fieldName: '地点'},
+            {id: 3, start: 15, end: 18, fieldId: 3, fieldName: '人名'}
+        ];
+        const markList3 = [
+            {id: 1, start: 0, end: 5, fieldId: 1, fieldName: '时间'},
+            {id: 2, start: 8, end: 10, fieldId: 2, fieldName: '地点'},
+            {id: 3, start: 15, end: 18, fieldId: 3, fieldName: '人名'}
+        ];
+        // 标注
+        function setMark(e) {
+            let tempList = [];
+            let tempHtml = [];
+            switch (e) {
+                case 1:
+                    tempList = handleMarkData(markList1);
+                    break;
+                case 2:
+                    tempList = handleMarkData(markList2);
+                    break;
+                case 3:
+                    tempList = handleMarkData(markList3);
+                    break;
+            }
+            for (let i = 0; i < tempList.length; i++) {
+                const {id, start, end, fieldList} = tempList[i];
+                if (i === 0) {
+                    let str = text.slice(0, start);
+                    if (str.trim() !== '') {
+                        tempHtml.push(str);
+                    }
+                }
+                let className = 'color-' + fieldList[fieldList.length - 1].fieldId;
+                tempHtml.push(
+                    `<span id=${id} class=${className} data-info=${JSON.stringify(fieldList)}>${text.slice(start, end)}</span>`
+                );
+                if (i === tempList.length - 1) {
+                    let str = text.slice(end);
+                    if (str.trim() !== '') {
+                        tempHtml.push(str);
+                    }
+                } else {
+                    tempHtml.push(text.slice(end, tempList[i + 1].start));
+                }
+            }
+            document.getElementById('text-container').innerHTML = tempHtml.join('');
+        }
+        // 处理标注数据
+        function handleMarkData(data) {
+            let tempData = JSON.parse(JSON.stringify(data));
+            let tempList = [];
+            for (let i = 0; i < tempData.length; i++) {
+                const {id, start, end, fieldId, fieldName} = tempData[i];
+                let index = tempList.findIndex(item => item.start === start && item.end === end);
+                console.log('index: ', index);
+                // 区域重合，判断是否是重复数据；区域不重合，则为交叉数据
+                if (index !== -1) {
+                    if (!tempList[index].fieldList) {
+                        tempList[index].fieldList = [];
+                        tempList[index].fieldList.push({
+                            fieldId: fieldId,
+                            fieldName: fieldName
+                        });
+                    } else {
+                        if (tempList[index].fieldList.some(item => item.fieldId === fieldId)) {
+                            return;
+                        } else {
+                            tempList[index].fieldList.push({
+                                fieldId: fieldId,
+                                fieldName: fieldName
+                            });
+                        }
+                    }
+                } else {
+                    if (tempList.length === 0) {
+                        tempList.push({
+                            id: id,
+                            start: start,
+                            end: end,
+                            fieldList: [
+                                {
+                                    fieldId: fieldId,
+                                    fieldName: fieldName
+                                }
+                            ]
+                        });
+                    } else {
+                        
+                    }
+                }
+            }
+            tempList.sort((a, b) => a.start - b.start);
+            console.log('list: ', tempList);
+            console.log('data: ', tempData);
+            return tempList;
+        }
+    </script>
+</body>
+</html>
